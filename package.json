@@ -1,0 +1,23 @@
+{
+  "name": "latlngtest",
+  "version": "1.0.0",
+  "description": "Get Lat Long from SmartyStreets and Google Geocoder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishalc10/latlongTest.git"
+  },
+  "keywords": [
+    "geocode",
+    "SmartyStreets"
+  ],
+  "author": "vishal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vishalc10/latlongTest/issues"
+  },
+  "homepage": "https://github.com/vishalc10/latlongTest#readme"
+}
