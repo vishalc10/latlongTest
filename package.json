@@ -1,6 +1,6 @@
 {
   "name": "latlngtest",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Get Lat Long from SmartyStreets and Google Geocoder",
   "main": "index.js",
   "scripts": {
