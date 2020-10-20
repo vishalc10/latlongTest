@@ -1,5 +1,4 @@
-import {callGeocoder} from './geocoder'
-
+import { callGeocoder } from './geocoder'
 const callUSStreetApi = (fullAddress) => {
     /* Initialize the SDK. */
     const SmartyStreetsSDK = require("smartystreets-javascript-sdk");
@@ -20,21 +19,32 @@ const callUSStreetApi = (fullAddress) => {
     lookup.match = "strict";
 
     // Send the lookup with the SDK. The SDK returns a promise.
-    client.send(lookup)
-    .then(handleResponse)
-    .catch(handleError);
-}
+    return client.send(lookup).then((res) => {
+        return handleResponse(res)
+    }).catch((res) => {
+        return callGeocoder(fullAddress);
+    });
+};
 
 const handleResponse = (res) => {
+    console.log('In Street Handle response');
     let lat = res.lookups[0].result[0].metadata.latitude;
     let lng = res.lookups[0].result[0].metadata.longitude;
 
-    //return lat lng object
-    return ({lat, lng});
-}
+    let result = {
+        lat: lat,
+        lng: lng
+    }
 
+    //return lat lng object
+    return { result };
+};
+  
 const handleError = (res) => {
-    //return error msg
-    console.log(res.Error.msg);
-    callGeocoder(fullAddress);
-}
+//return error msg
+console.log('In Error');
+return res;
+};
+  
+export { callUSStreetApi };
+  

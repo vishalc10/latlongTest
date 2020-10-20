@@ -1,5 +1,7 @@
 const callGeocoder = (fullAddress) => {
+    console.log('In Geocoder')
     var geocoder = new google.maps.Geocoder();
+    console.log(555, geocoder);
 
     geocoder.geocode({
         'address': fullAddress
@@ -8,9 +10,13 @@ const callGeocoder = (fullAddress) => {
           var lat = results[0].geometry.location.lat();
           var lng = results[0].geometry.location.lng();
           
-          return ({lat, lng});
+          let result = {
+              lat: lat,
+              lng: lng
+          }
+          return {result};
         }
       })
 }
 
-module.exports.callGeocoder = callGeocoder;
+export {callGeocoder}
