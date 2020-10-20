@@ -1,7 +1,7 @@
 import { callZipApi } from "./zipAPI";
 import { callUSStreetApi } from "./usStreetAPI";
 
-const latlongtest = (options) => {
+const latlngtest = (options) => {
   if (options.zipcode || (options.city && options.state)) {
     let zipData = {
       city: options.city,
@@ -17,4 +17,4 @@ const latlongtest = (options) => {
   }
 };
 
-export { latlongtest };
+export { latlngtest };
