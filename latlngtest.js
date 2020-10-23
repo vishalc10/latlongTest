@@ -17,4 +17,4 @@ const latlngtest = (options) => {
   }
 };
 
-export { latlngtest };
+module.exports.latlngtest = latlngtest;

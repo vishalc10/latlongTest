@@ -22,18 +22,28 @@ const callUSStreetApi = (fullAddress) => {
     return client.send(lookup).then((res) => {
         return handleResponse(res)
     }).catch((res) => {
-        return callGeocoder(fullAddress);
+        return handleError(res);
     });
 };
 
 const handleResponse = (res) => {
     console.log('In Street Handle response');
-    let lat = res.lookups[0].result[0].metadata.latitude;
-    let lng = res.lookups[0].result[0].metadata.longitude;
+    let result;
+    if(res.lookups[0].result == undefined || res.lookups[0].result.length == 0){
 
-    let result = {
-        lat: lat,
-        lng: lng
+        //returning undefined
+        result = callGeocoder(res.lookups[0].street)
+            .then(geo => geo);
+        
+    }
+    else{
+        let lat = res.lookups[0].result[0].metadata.latitude;
+        let lng = res.lookups[0].result[0].metadata.longitude;
+
+        result = {
+            lat: lat,
+            lng: lng
+        }
     }
 
     //return lat lng object
@@ -41,10 +51,8 @@ const handleResponse = (res) => {
 };
   
 const handleError = (res) => {
-//return error msg
-console.log('In Error');
-return res;
-};
-  
-export { callUSStreetApi };
-  
+    let result = {error: res.error.message};
+    return {result};
+  }
+
+module.exports.callUSStreetApi = callUSStreetApi;  

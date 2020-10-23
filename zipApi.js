@@ -20,28 +20,34 @@ const callZipApi = (zipData) => {
     // Send the lookup with the SDK. The SDK returns a promise.
     return client.send(lookup).then((res) => {
         return handleResponse(res)
-    }).catch(handleError);
+    }).catch((res) => {
+      return handleError(res)
+    })
   };
   
   const handleResponse = (res) => {
     console.log('In Zip Handle response');
-    let lat = res.lookups[0].result[0].zipcodes[0].latitude;
-    let lng = res.lookups[0].result[0].zipcodes[0].longitude;
-  
-    let result = {
-        lat: lat,
-        lng: lng
+    let result;
+    if(res.lookups[0].result[0].status){
+      result = {error: res.lookups[0].result[0].reason};
+    }
+    else{      
+      let lat = res.lookups[0].result[0].zipcodes[0].latitude;
+      let lng = res.lookups[0].result[0].zipcodes[0].longitude;
+    
+      result = {
+          lat: lat,
+          lng: lng
+      }
     }
 
     //return lat lng object
     return { result };
   };
-  
+
   const handleError = (res) => {
-    //return error msg
-    console.log('In Error');
-    return res;
-  };
+    let result = {error: res.error.message};
+    return {result};
+  }
   
-  export { callZipApi };
-  
+module.exports.callZipApi = callZipApi;  
